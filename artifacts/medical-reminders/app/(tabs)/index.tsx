@@ -83,6 +83,13 @@ export default function TodayScreen() {
           </TouchableOpacity>
         </View>
 
+        <View style={[styles.notifBanner, { backgroundColor: colors.muted, borderColor: colors.border }]}>
+          <Text style={{ fontSize: 14 }}>🔔</Text>
+          <Text style={[styles.notifBannerText, { color: colors.mutedForeground }]}>
+            Notifications require a development build — not supported in Expo Go on Android.
+          </Text>
+        </View>
+
         {totalToday > 0 && (
           <View style={[styles.progressCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
             <View style={styles.progressInfo}>
@@ -182,6 +189,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
   },
+  notifBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    padding: 10,
+    marginBottom: 16,
+  },
+  notifBannerText: { flex: 1, fontSize: 12, fontFamily: "Inter_400Regular", lineHeight: 17 },
   greeting: { fontSize: 14, fontFamily: "Inter_400Regular" },
   title: { fontSize: 26, fontFamily: "Inter_700Bold", marginTop: 2 },
   addBtn: {

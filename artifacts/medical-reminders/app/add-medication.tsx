@@ -267,43 +267,53 @@ export default function AddMedicationScreen() {
                   {time.label ?? `Dose ${i + 1}`}
                 </Text>
                 <View style={styles.timePickerRow}>
-                  <TouchableOpacity
-                    style={[styles.timeAdjBtn, { backgroundColor: colors.muted }]}
-                    onPress={() => updateTime(i, "hour", (time.hour - 1 + 24) % 24)}
-                  >
-                    <Feather name="chevron-up" size={14} color={colors.foreground} />
-                  </TouchableOpacity>
-                  <Text style={[styles.timeValue, { color: colors.foreground }]}>
-                    {String(time.hour).padStart(2, "0")}
-                  </Text>
-                  <TouchableOpacity
-                    style={[styles.timeAdjBtn, { backgroundColor: colors.muted }]}
-                    onPress={() => updateTime(i, "hour", (time.hour + 1) % 24)}
-                  >
-                    <Feather name="chevron-down" size={14} color={colors.foreground} />
-                  </TouchableOpacity>
+                  {/* Hour column */}
+                  <View style={styles.timeColumn}>
+                    <TouchableOpacity
+                      style={[styles.timeAdjBtn, { backgroundColor: colors.primary }]}
+                      onPress={() => updateTime(i, "hour", (time.hour - 1 + 24) % 24)}
+                    >
+                      <Text style={styles.timeAdjText}>+</Text>
+                    </TouchableOpacity>
+                    <Text style={[styles.timeValue, { color: colors.foreground }]}>
+                      {String(time.hour % 12 || 12).padStart(2, "0")}
+                    </Text>
+                    <TouchableOpacity
+                      style={[styles.timeAdjBtn, { backgroundColor: colors.muted }]}
+                      onPress={() => updateTime(i, "hour", (time.hour + 1) % 24)}
+                    >
+                      <Text style={[styles.timeAdjText, { color: colors.foreground }]}>−</Text>
+                    </TouchableOpacity>
+                  </View>
 
                   <Text style={[styles.timeSep, { color: colors.foreground }]}>:</Text>
 
-                  <TouchableOpacity
-                    style={[styles.timeAdjBtn, { backgroundColor: colors.muted }]}
-                    onPress={() => updateTime(i, "minute", (time.minute - 5 + 60) % 60)}
-                  >
-                    <Feather name="chevron-up" size={14} color={colors.foreground} />
-                  </TouchableOpacity>
-                  <Text style={[styles.timeValue, { color: colors.foreground }]}>
-                    {String(time.minute).padStart(2, "0")}
-                  </Text>
-                  <TouchableOpacity
-                    style={[styles.timeAdjBtn, { backgroundColor: colors.muted }]}
-                    onPress={() => updateTime(i, "minute", (time.minute + 5) % 60)}
-                  >
-                    <Feather name="chevron-down" size={14} color={colors.foreground} />
-                  </TouchableOpacity>
+                  {/* Minute column */}
+                  <View style={styles.timeColumn}>
+                    <TouchableOpacity
+                      style={[styles.timeAdjBtn, { backgroundColor: colors.primary }]}
+                      onPress={() => updateTime(i, "minute", (time.minute - 5 + 60) % 60)}
+                    >
+                      <Text style={styles.timeAdjText}>+</Text>
+                    </TouchableOpacity>
+                    <Text style={[styles.timeValue, { color: colors.foreground }]}>
+                      {String(time.minute).padStart(2, "0")}
+                    </Text>
+                    <TouchableOpacity
+                      style={[styles.timeAdjBtn, { backgroundColor: colors.muted }]}
+                      onPress={() => updateTime(i, "minute", (time.minute + 5) % 60)}
+                    >
+                      <Text style={[styles.timeAdjText, { color: colors.foreground }]}>−</Text>
+                    </TouchableOpacity>
+                  </View>
 
-                  <Text style={[styles.ampm, { color: colors.primary }]}>
-                    {time.hour < 12 ? "AM" : "PM"}
-                  </Text>
+                  {/* AM/PM toggle */}
+                  <TouchableOpacity
+                    style={[styles.ampmBtn, { backgroundColor: colors.primary }]}
+                    onPress={() => updateTime(i, "hour", time.hour < 12 ? time.hour + 12 : time.hour - 12)}
+                  >
+                    <Text style={styles.ampmText}>{time.hour < 12 ? "AM" : "PM"}</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             ))}
@@ -313,7 +323,7 @@ export default function AddMedicationScreen() {
         <Section title="Options">
           <View style={[styles.toggleRow, { backgroundColor: colors.card, borderColor: colors.border }]}>
             <View style={styles.toggleInfo}>
-              <Feather name="coffee" size={16} color={colors.mutedForeground} />
+              <Text style={{ fontSize: 16 }}>☕</Text>
               <Text style={[styles.toggleLabel, { color: colors.foreground }]}>Take with food</Text>
             </View>
             <Switch
@@ -430,11 +440,15 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   timeColorDot: { width: 10, height: 10, borderRadius: 5 },
-  timeLabel: { flex: 1, fontSize: 14, fontFamily: "Inter_400Regular" },
-  timePickerRow: { flexDirection: "row", alignItems: "center", gap: 4 },
-  timeAdjBtn: { width: 26, height: 26, borderRadius: 8, alignItems: "center", justifyContent: "center" },
-  timeValue: { fontSize: 20, fontFamily: "Inter_700Bold", minWidth: 30, textAlign: "center" },
-  timeSep: { fontSize: 20, fontFamily: "Inter_700Bold" },
+  timeLabel: { flex: 1, fontSize: 13, fontFamily: "Inter_400Regular" },
+  timePickerRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  timeColumn: { alignItems: "center", gap: 4 },
+  timeAdjBtn: { width: 32, height: 32, borderRadius: 8, alignItems: "center", justifyContent: "center" },
+  timeAdjText: { color: "#fff", fontSize: 18, fontFamily: "Inter_700Bold", lineHeight: 22 },
+  timeValue: { fontSize: 22, fontFamily: "Inter_700Bold", minWidth: 34, textAlign: "center" },
+  timeSep: { fontSize: 24, fontFamily: "Inter_700Bold", marginBottom: 4 },
+  ampmBtn: { paddingHorizontal: 10, paddingVertical: 8, borderRadius: 10, alignItems: "center", justifyContent: "center", marginLeft: 2 },
+  ampmText: { color: "#fff", fontSize: 13, fontFamily: "Inter_700Bold" },
   ampm: { fontSize: 13, fontFamily: "Inter_600SemiBold", marginLeft: 4 },
   toggleRow: {
     flexDirection: "row",

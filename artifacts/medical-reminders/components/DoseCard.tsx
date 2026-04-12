@@ -1,4 +1,4 @@
-import { Feather } from "@expo/vector-icons";
+
 import * as Haptics from "expo-haptics";
 import React, { useState } from "react";
 import {
@@ -109,7 +109,7 @@ export function DoseCard({ dose }: Props) {
                   onPress={() => handleMark("taken")}
                   activeOpacity={0.8}
                 >
-                  <Feather name="check" size={14} color="#fff" />
+                  <Text style={styles.btnIcon}>✓</Text>
                   <Text style={styles.btnText}>Take</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -117,7 +117,7 @@ export function DoseCard({ dose }: Props) {
                   onPress={() => handleMark("skipped")}
                   activeOpacity={0.8}
                 >
-                  <Feather name="x" size={14} color={colors.mutedForeground} />
+                  <Text style={[styles.skipBtnIcon, { color: colors.mutedForeground }]}>✕</Text>
                   <Text style={[styles.skipBtnText, { color: colors.mutedForeground }]}>Skip</Text>
                 </TouchableOpacity>
               </>
@@ -130,9 +130,8 @@ export function DoseCard({ dose }: Props) {
             style={styles.undoBtn}
             onPress={() => handleMark(isTaken ? "skipped" : "taken")}
           >
-            <Feather name="rotate-ccw" size={12} color={colors.mutedForeground} />
             <Text style={[styles.undoText, { color: colors.mutedForeground }]}>
-              Mark as {isTaken ? "skipped" : "taken"}
+              ↩ Mark as {isTaken ? "skipped" : "taken"}
             </Text>
           </TouchableOpacity>
         )}
@@ -216,10 +215,19 @@ const styles = StyleSheet.create({
   skipBtn: {
     borderWidth: 1,
   },
+  btnIcon: {
+    color: "#fff",
+    fontSize: 14,
+    fontFamily: "Inter_700Bold",
+  },
   btnText: {
     color: "#fff",
     fontSize: 13,
     fontFamily: "Inter_600SemiBold",
+  },
+  skipBtnIcon: {
+    fontSize: 14,
+    fontFamily: "Inter_700Bold",
   },
   skipBtnText: {
     fontSize: 13,
