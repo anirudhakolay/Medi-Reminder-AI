@@ -3,10 +3,15 @@ import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { Tabs } from "expo-router";
 import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
 import { SymbolView } from "expo-symbols";
-import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { Platform, StyleSheet, View, useColorScheme } from "react-native";
+import { Platform, StyleSheet, Text, View, useColorScheme } from "react-native";
 import { useColors } from "@/hooks/useColors";
+
+function TabIcon({ emoji, color }: { emoji: string; color: string }) {
+  return (
+    <Text style={{ fontSize: 20, color, textAlign: "center" }}>{emoji}</Text>
+  );
+}
 
 function NativeTabLayout() {
   return (
@@ -79,7 +84,7 @@ function ClassicTabLayout() {
             isIOS ? (
               <SymbolView name="house" tintColor={color} size={22} />
             ) : (
-              <Feather name="home" size={22} color={color} />
+              <TabIcon emoji="🏠" color={color} />
             ),
         }}
       />
@@ -91,7 +96,7 @@ function ClassicTabLayout() {
             isIOS ? (
               <SymbolView name="pill" tintColor={color} size={22} />
             ) : (
-              <Feather name="activity" size={22} color={color} />
+              <TabIcon emoji="💊" color={color} />
             ),
         }}
       />
@@ -103,7 +108,7 @@ function ClassicTabLayout() {
             isIOS ? (
               <SymbolView name="calendar" tintColor={color} size={22} />
             ) : (
-              <Feather name="calendar" size={22} color={color} />
+              <TabIcon emoji="📅" color={color} />
             ),
         }}
       />
@@ -115,7 +120,7 @@ function ClassicTabLayout() {
             isIOS ? (
               <SymbolView name="brain.head.profile" tintColor={color} size={22} />
             ) : (
-              <Feather name="cpu" size={22} color={color} />
+              <TabIcon emoji="🤖" color={color} />
             ),
         }}
       />

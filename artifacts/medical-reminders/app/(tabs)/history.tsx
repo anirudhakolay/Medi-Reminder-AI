@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import React, { useMemo, useState } from "react";
 import {
   FlatList,
@@ -61,10 +60,10 @@ export default function HistoryScreen() {
   }
 
   const statusConfig = {
-    taken: { color: colors.success, icon: "check-circle" as const, label: "Taken" },
-    missed: { color: colors.destructive, icon: "x-circle" as const, label: "Missed" },
-    skipped: { color: colors.warning, icon: "minus-circle" as const, label: "Skipped" },
-    pending: { color: colors.mutedForeground, icon: "clock" as const, label: "Pending" },
+    taken: { color: colors.success, emoji: "✅", label: "Taken" },
+    missed: { color: colors.destructive, emoji: "❌", label: "Missed" },
+    skipped: { color: colors.warning, emoji: "⏭️", label: "Skipped" },
+    pending: { color: colors.mutedForeground, emoji: "⏳", label: "Pending" },
   };
 
   const topPadding = Platform.OS === "web" ? 67 : insets.top;
@@ -139,7 +138,7 @@ export default function HistoryScreen() {
                   style={[styles.record, { backgroundColor: colors.card, borderColor: colors.border }]}
                 >
                   <View style={[styles.recordIcon, { backgroundColor: cfg.color + "20" }]}>
-                    <Feather name={cfg.icon} size={18} color={cfg.color} />
+                    <Text style={styles.recordEmoji}>{cfg.emoji}</Text>
                   </View>
                   <View style={styles.recordInfo}>
                     <Text style={[styles.recordName, { color: colors.foreground }]}>
@@ -156,7 +155,7 @@ export default function HistoryScreen() {
         )}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Feather name="calendar" size={52} color={colors.muted} />
+            <Text style={styles.emptyIcon}>📅</Text>
             <Text style={[styles.emptyTitle, { color: colors.foreground }]}>
               No history yet
             </Text>

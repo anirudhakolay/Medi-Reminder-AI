@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useState } from "react";
@@ -69,11 +68,11 @@ export default function MedicationsScreen() {
             onPress={() => router.push("/add-medication")}
             activeOpacity={0.8}
           >
-            <Feather name="plus" size={20} color="#fff" />
+            <Text style={styles.addBtnText}>＋</Text>
           </TouchableOpacity>
         </View>
         <View style={[styles.searchBar, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          <Feather name="search" size={16} color={colors.mutedForeground} />
+          <Text style={[styles.searchIcon, { color: colors.mutedForeground }]}>🔍</Text>
           <TextInput
             style={[styles.searchInput, { color: colors.foreground }]}
             placeholder="Search medications..."
@@ -83,7 +82,7 @@ export default function MedicationsScreen() {
           />
           {search.length > 0 && (
             <TouchableOpacity onPress={() => setSearch("")}>
-              <Feather name="x" size={16} color={colors.mutedForeground} />
+              <Text style={[styles.clearBtn, { color: colors.mutedForeground }]}>✕</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -126,7 +125,7 @@ export default function MedicationsScreen() {
         }}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Feather name="activity" size={52} color={colors.muted} />
+            <Text style={styles.emptyIcon}>💊</Text>
             <Text style={[styles.emptyTitle, { color: colors.foreground }]}>
               {search ? "No results found" : "No medications yet"}
             </Text>
@@ -171,6 +170,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  addBtnText: {
+    color: "#fff",
+    fontSize: 22,
+    lineHeight: 26,
+    fontFamily: "Inter_400Regular",
+  },
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
@@ -180,6 +185,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
   },
+  searchIcon: { fontSize: 15 },
+  clearBtn: { fontSize: 16, paddingHorizontal: 4 },
   searchInput: {
     flex: 1,
     fontSize: 14,
@@ -200,6 +207,7 @@ const styles = StyleSheet.create({
     paddingVertical: 60,
     gap: 12,
   },
+  emptyIcon: { fontSize: 52 },
   emptyTitle: {
     fontSize: 20,
     fontFamily: "Inter_600SemiBold",

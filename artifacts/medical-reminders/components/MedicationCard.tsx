@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React from "react";
@@ -32,95 +31,97 @@ export function MedicationCard({ medication, onDelete }: Props) {
   };
 
   return (
-    <TouchableOpacity
-      style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border }]}
-      onPress={() => {
-        if (Platform.OS !== "web") Haptics.selectionAsync();
-        router.push(`/medication/${medication.id}`);
-      }}
-      activeOpacity={0.7}
-    >
-      <View style={[styles.colorBar, { backgroundColor: medication.color }]} />
-      <View style={styles.content}>
-        <View style={styles.header}>
-          <Text style={[styles.name, { color: colors.foreground }]} numberOfLines={1}>
-            {medication.name}
-          </Text>
-          <View
-            style={[
-              styles.badge,
-              {
-                backgroundColor: medication.active
-                  ? colors.secondary
-                  : colors.muted,
-              },
-            ]}
-          >
-            <Text
+    <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border }]}>
+      <TouchableOpacity
+        style={styles.mainArea}
+        onPress={() => {
+          if (Platform.OS !== "web") Haptics.selectionAsync();
+          router.push(`/medication/${medication.id}`);
+        }}
+        activeOpacity={0.7}
+      >
+        <View style={[styles.colorBar, { backgroundColor: medication.color }]} />
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <Text style={[styles.name, { color: colors.foreground }]} numberOfLines={1}>
+              {medication.name}
+            </Text>
+            <View
               style={[
-                styles.badgeText,
+                styles.badge,
                 {
-                  color: medication.active
-                    ? colors.primary
-                    : colors.mutedForeground,
+                  backgroundColor: medication.active
+                    ? colors.secondary
+                    : colors.muted,
                 },
               ]}
             >
-              {medication.active ? "Active" : "Inactive"}
-            </Text>
-          </View>
-        </View>
-
-        <Text style={[styles.dosage, { color: colors.mutedForeground }]}>
-          {medication.dosage} {medication.unit} · {frequencyLabel[medication.frequency]}
-        </Text>
-
-        <View style={styles.timesRow}>
-          {medication.times.slice(0, 3).map((t, i) => (
-            <View
-              key={i}
-              style={[styles.timeChip, { backgroundColor: colors.secondary }]}
-            >
-              <Feather name="clock" size={11} color={colors.primary} />
-              <Text style={[styles.timeText, { color: colors.primary }]}>
-                {formatTime(t.hour, t.minute)}
+              <Text
+                style={[
+                  styles.badgeText,
+                  {
+                    color: medication.active
+                      ? colors.primary
+                      : colors.mutedForeground,
+                  },
+                ]}
+              >
+                {medication.active ? "Active" : "Inactive"}
               </Text>
             </View>
-          ))}
-          {medication.times.length > 3 && (
-            <Text style={[styles.moreText, { color: colors.mutedForeground }]}>
-              +{medication.times.length - 3} more
-            </Text>
+          </View>
+
+          <Text style={[styles.dosage, { color: colors.mutedForeground }]}>
+            {medication.dosage} {medication.unit} · {frequencyLabel[medication.frequency]}
+          </Text>
+
+          <View style={styles.timesRow}>
+            {medication.times.slice(0, 3).map((t, i) => (
+              <View
+                key={i}
+                style={[styles.timeChip, { backgroundColor: colors.secondary }]}
+              >
+                <Text style={[styles.timeChipIcon, { color: colors.primary }]}>🕐</Text>
+                <Text style={[styles.timeText, { color: colors.primary }]}>
+                  {formatTime(t.hour, t.minute)}
+                </Text>
+              </View>
+            ))}
+            {medication.times.length > 3 && (
+              <Text style={[styles.moreText, { color: colors.mutedForeground }]}>
+                +{medication.times.length - 3} more
+              </Text>
+            )}
+          </View>
+
+          {medication.withFood && (
+            <View style={styles.foodRow}>
+              <Text style={styles.foodIcon}>☕</Text>
+              <Text style={[styles.foodText, { color: colors.mutedForeground }]}>
+                Take with food
+              </Text>
+            </View>
           )}
         </View>
-
-        {medication.withFood && (
-          <View style={styles.foodRow}>
-            <Feather name="coffee" size={12} color={colors.mutedForeground} />
-            <Text style={[styles.foodText, { color: colors.mutedForeground }]}>
-              Take with food
-            </Text>
-          </View>
-        )}
-      </View>
+      </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.deleteBtn}
+        style={[styles.deleteBtn, { borderColor: colors.border }]}
         onPress={() => {
           if (Platform.OS !== "web") Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
           onDelete?.(medication.id);
         }}
         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       >
-        <Feather name="chevron-right" size={18} color={colors.mutedForeground} />
+        <Text style={styles.deleteEmoji}>🗑️</Text>
+        <Text style={styles.deleteLabel}>Delete</Text>
       </TouchableOpacity>
-    </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: "row",
     borderRadius: 16,
     borderWidth: 1,
     marginBottom: 10,
@@ -130,6 +131,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.06,
     shadowRadius: 8,
     elevation: 2,
+  },
+  mainArea: {
+    flexDirection: "row",
   },
   colorBar: {
     width: 4,
@@ -177,6 +181,9 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 8,
   },
+  timeChipIcon: {
+    fontSize: 10,
+  },
   timeText: {
     fontSize: 12,
     fontFamily: "Inter_500Medium",
@@ -192,12 +199,28 @@ const styles = StyleSheet.create({
     gap: 4,
     marginTop: 2,
   },
+  foodIcon: {
+    fontSize: 12,
+  },
   foodText: {
     fontSize: 12,
     fontFamily: "Inter_400Regular",
   },
   deleteBtn: {
+    flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center",
-    paddingRight: 14,
+    gap: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderTopWidth: 1,
+  },
+  deleteEmoji: {
+    fontSize: 14,
+  },
+  deleteLabel: {
+    fontSize: 13,
+    fontFamily: "Inter_500Medium",
+    color: "#e74c3c",
   },
 });
