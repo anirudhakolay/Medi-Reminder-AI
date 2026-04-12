@@ -11,8 +11,15 @@ import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
+import { LogBox } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { setBaseUrl } from "@workspace/api-client-react";
+
+LogBox.ignoreLogs([
+  "expo-notifications: Android Push notifications (remote notifications) functionality",
+  "shadow* style props are deprecated",
+  "props.pointerEvents is deprecated",
+]);
 
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { MedicationProvider } from "@/context/MedicationContext";
