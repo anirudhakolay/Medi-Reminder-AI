@@ -17,6 +17,7 @@
       "supportsTablet": false
     },
     "android": {
+      "package": "com.anirudhakolay.medicalreminders",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#0d2137"
@@ -55,6 +56,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1d41a8f8-f1a6-4270-84eb-13573a08ea44"
+      }
+    },
+    "owner": "anirudhakolay"
   }
 }
