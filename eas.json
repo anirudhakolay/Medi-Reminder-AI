@@ -13,7 +13,7 @@
         "buildType": "apk"
       },
       "distribution": "internal",
-      "frozenLockfile" : false
+      // "frozenLockfile" : false
     },
     "production": {
       "autoIncrement": true
