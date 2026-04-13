@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useCallback } from "react";
 import {
@@ -79,7 +78,7 @@ export default function TodayScreen() {
             onPress={() => router.push("/add-medication")}
             activeOpacity={0.8}
           >
-            <Feather name="plus" size={22} color="#fff" />
+            <Text style={{ color: "#fff", fontSize: 24, lineHeight: 26 }}>＋</Text>
           </TouchableOpacity>
         </View>
 
@@ -160,7 +159,7 @@ export default function TodayScreen() {
 
         {totalToday === 0 && !isLoading && (
           <View style={styles.emptyState}>
-            <Feather name="check-circle" size={56} color={colors.muted} />
+            <Text style={{ fontSize: 56 }}>✅</Text>
             <Text style={[styles.emptyTitle, { color: colors.foreground }]}>
               No medications today
             </Text>

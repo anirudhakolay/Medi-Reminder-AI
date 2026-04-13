@@ -41,11 +41,11 @@ export default function CoachScreen() {
     }
   }
 
-  const insightConfig: Record<AIInsight["type"], { icon: string; color: string; bg: string }> = {
-    tip: { icon: "lightbulb", color: colors.primary, bg: colors.secondary },
-    warning: { icon: "alert-triangle", color: colors.warning, bg: colors.warning + "20" },
-    achievement: { icon: "award", color: colors.success, bg: colors.success + "20" },
-    suggestion: { icon: "message-circle", color: colors.accent, bg: colors.accent + "20" },
+  const insightConfig: Record<AIInsight["type"], { emoji: string; color: string; bg: string }> = {
+    tip: { emoji: "💡", color: colors.primary, bg: colors.secondary },
+    warning: { emoji: "⚠️", color: colors.warning, bg: colors.warning + "20" },
+    achievement: { emoji: "🏆", color: colors.success, bg: colors.success + "20" },
+    suggestion: { emoji: "💬", color: colors.accent, bg: colors.accent + "20" },
   };
 
   const topPadding = Platform.OS === "web" ? 67 : insets.top;
@@ -66,9 +66,7 @@ export default function CoachScreen() {
         </Text>
 
         <View style={[styles.heroCard, { backgroundColor: colors.primary }]}>
-          <View style={styles.heroIcon}>
-            <Feather name="cpu" size={32} color="rgba(255,255,255,0.9)" />
-          </View>
+          <Text style={styles.heroEmoji}>🤖</Text>
           <Text style={styles.heroTitle}>Your Adherence Coach</Text>
           <Text style={styles.heroText}>
             Get personalized analysis of your medication adherence patterns, smart reminders,
@@ -102,7 +100,7 @@ export default function CoachScreen() {
               <ActivityIndicator color={colors.primary} size="small" />
             ) : (
               <>
-                <Feather name="zap" size={16} color={colors.primary} />
+                <Text style={[styles.analyzeBtnEmoji, { color: colors.primary }]}>⚡</Text>
                 <Text style={[styles.analyzeBtnText, { color: colors.primary }]}>
                   Analyze My Adherence
                 </Text>
@@ -122,7 +120,7 @@ export default function CoachScreen() {
 
         {error && (
           <View style={[styles.errorCard, { backgroundColor: colors.destructive + "15", borderColor: colors.destructive + "40" }]}>
-            <Feather name="alert-circle" size={20} color={colors.destructive} />
+            <Text style={styles.errorEmoji}>⚠️</Text>
             <Text style={[styles.errorText, { color: colors.destructive }]}>{error}</Text>
             <TouchableOpacity onPress={handleGetInsights}>
               <Text style={[styles.retryText, { color: colors.primary }]}>Try again</Text>
@@ -153,7 +151,7 @@ export default function CoachScreen() {
                   style={[styles.insightCard, { backgroundColor: colors.card, borderColor: colors.border }]}
                 >
                   <View style={[styles.insightIcon, { backgroundColor: cfg.bg }]}>
-                    <Feather name={cfg.icon as any} size={20} color={cfg.color} />
+                    <Text style={styles.insightEmoji}>{cfg.emoji}</Text>
                   </View>
                   <View style={styles.insightContent}>
                     <Text style={[styles.insightTitle, { color: colors.foreground }]}>
@@ -171,9 +169,8 @@ export default function CoachScreen() {
               style={[styles.refreshBtn, { borderColor: colors.border }]}
               onPress={handleGetInsights}
             >
-              <Feather name="refresh-cw" size={14} color={colors.mutedForeground} />
               <Text style={[styles.refreshText, { color: colors.mutedForeground }]}>
-                Refresh insights
+                🔄  Refresh insights
               </Text>
             </TouchableOpacity>
           </View>
@@ -184,26 +181,10 @@ export default function CoachScreen() {
             <Text style={[styles.infoTitle, { color: colors.foreground }]}>
               What your AI Coach can do
             </Text>
-            <InfoItem
-              icon="trending-up"
-              text="Analyze your adherence patterns over time"
-              colors={colors}
-            />
-            <InfoItem
-              icon="alert-triangle"
-              text="Identify which medications you tend to miss"
-              colors={colors}
-            />
-            <InfoItem
-              icon="clock"
-              text="Suggest better reminder times based on your history"
-              colors={colors}
-            />
-            <InfoItem
-              icon="heart"
-              text="Provide encouragement and actionable tips"
-              colors={colors}
-            />
+            <InfoItem emoji="📈" text="Analyze your adherence patterns over time" colors={colors} />
+            <InfoItem emoji="🎯" text="Identify which medications you tend to miss" colors={colors} />
+            <InfoItem emoji="⏰" text="Suggest better reminder times based on your history" colors={colors} />
+            <InfoItem emoji="❤️" text="Provide encouragement and actionable tips" colors={colors} />
           </View>
         )}
       </ScrollView>
@@ -211,11 +192,11 @@ export default function CoachScreen() {
   );
 }
 
-function InfoItem({ icon, text, colors }: { icon: string; text: string; colors: any }) {
+function InfoItem({ emoji, text, colors }: { emoji: string; text: string; colors: any }) {
   return (
     <View style={styles.infoItem}>
       <View style={[styles.infoIconWrap, { backgroundColor: colors.secondary }]}>
-        <Feather name={icon as any} size={16} color={colors.primary} />
+        <Text style={styles.infoEmoji}>{emoji}</Text>
       </View>
       <Text style={[styles.infoItemText, { color: colors.mutedForeground }]}>{text}</Text>
     </View>
@@ -233,7 +214,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     gap: 12,
   },
-  heroIcon: { marginBottom: 4 },
+  heroEmoji: { fontSize: 36 },
   heroTitle: {
     color: "#fff",
     fontSize: 22,
@@ -267,6 +248,7 @@ const styles = StyleSheet.create({
     gap: 8,
     marginTop: 4,
   },
+  analyzeBtnEmoji: { fontSize: 16 },
   analyzeBtnText: { fontSize: 15, fontFamily: "Inter_600SemiBold" },
   loadingCard: {
     flexDirection: "row",
@@ -287,6 +269,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
   },
+  errorEmoji: { fontSize: 24 },
   errorText: { fontSize: 13, fontFamily: "Inter_400Regular", textAlign: "center" },
   retryText: { fontSize: 13, fontFamily: "Inter_600SemiBold" },
   results: { gap: 12 },
@@ -313,14 +296,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  insightEmoji: { fontSize: 22 },
   insightContent: { flex: 1, gap: 4 },
   insightTitle: { fontSize: 14, fontFamily: "Inter_600SemiBold" },
   insightMessage: { fontSize: 13, fontFamily: "Inter_400Regular", lineHeight: 19 },
   refreshBtn: {
-    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 6,
     padding: 12,
     borderRadius: 12,
     borderWidth: 1,
@@ -337,5 +319,6 @@ const styles = StyleSheet.create({
   infoTitle: { fontSize: 16, fontFamily: "Inter_600SemiBold" },
   infoItem: { flexDirection: "row", alignItems: "center", gap: 12 },
   infoIconWrap: { width: 36, height: 36, borderRadius: 18, alignItems: "center", justifyContent: "center" },
+  infoEmoji: { fontSize: 18 },
   infoItemText: { flex: 1, fontSize: 13, fontFamily: "Inter_400Regular", lineHeight: 19 },
 });

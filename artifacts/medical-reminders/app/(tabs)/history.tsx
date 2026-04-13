@@ -224,10 +224,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  recordEmoji: { fontSize: 20 },
   recordInfo: { flex: 1 },
   recordName: { fontSize: 14, fontFamily: "Inter_500Medium" },
   recordTime: { fontSize: 12, fontFamily: "Inter_400Regular", marginTop: 2 },
   emptyState: { alignItems: "center", paddingVertical: 60, gap: 12 },
+  emptyIcon: { fontSize: 52 },
   emptyTitle: { fontSize: 20, fontFamily: "Inter_600SemiBold" },
   emptyText: { fontSize: 14, fontFamily: "Inter_400Regular", textAlign: "center", paddingHorizontal: 40 },
 });

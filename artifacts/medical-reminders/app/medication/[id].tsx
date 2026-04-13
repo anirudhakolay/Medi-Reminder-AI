@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
@@ -82,13 +81,13 @@ export default function MedicationDetailScreen() {
         ]}
       >
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
-          <Feather name="arrow-left" size={22} color={colors.foreground} />
+          <Text style={{ fontSize: 22, color: colors.foreground }}>←</Text>
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.foreground }]} numberOfLines={1}>
           {medication.name}
         </Text>
         <TouchableOpacity onPress={handleDelete} style={styles.deleteBtn}>
-          <Feather name="trash-2" size={20} color={colors.destructive} />
+          <Text style={{ fontSize: 18 }}>🗑️</Text>
         </TouchableOpacity>
       </View>
 
@@ -114,7 +113,7 @@ export default function MedicationDetailScreen() {
             <View style={styles.timesGrid}>
               {medication.times.map((t, i) => (
                 <View key={i} style={[styles.timeChip, { backgroundColor: colors.secondary }]}>
-                  <Feather name="clock" size={13} color={colors.primary} />
+                  <Text style={{ fontSize: 12 }}>🕐</Text>
                   <Text style={[styles.timeChipText, { color: colors.primary }]}>
                     {formatTime(t.hour, t.minute)}
                   </Text>
@@ -127,7 +126,7 @@ export default function MedicationDetailScreen() {
         <InfoCard colors={colors} title="Options">
           <View style={styles.toggleRow}>
             <View style={styles.toggleInfo}>
-              <Feather name="coffee" size={16} color={colors.mutedForeground} />
+              <Text style={{ fontSize: 16 }}>☕</Text>
               <Text style={[styles.toggleLabel, { color: colors.foreground }]}>Take with food</Text>
             </View>
             <Text style={[styles.infoValue, { color: medication.withFood ? colors.primary : colors.mutedForeground }]}>
@@ -137,7 +136,7 @@ export default function MedicationDetailScreen() {
           <View style={[styles.divider, { backgroundColor: colors.border }]} />
           <View style={styles.toggleRow}>
             <View style={styles.toggleInfo}>
-              <Feather name="bell" size={16} color={colors.mutedForeground} />
+              <Text style={{ fontSize: 16 }}>🔔</Text>
               <Text style={[styles.toggleLabel, { color: colors.foreground }]}>Active reminders</Text>
             </View>
             <Switch

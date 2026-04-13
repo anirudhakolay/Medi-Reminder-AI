@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import React, { useState } from "react";
@@ -151,7 +150,7 @@ export default function AddMedicationScreen() {
         ]}
       >
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
-          <Feather name="x" size={22} color={colors.foreground} />
+          <Text style={{ fontSize: 22, color: colors.foreground }}>✕</Text>
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: colors.foreground }]}>Add Medication</Text>
         <TouchableOpacity
@@ -251,7 +250,7 @@ export default function AddMedicationScreen() {
                   {opt.label}
                 </Text>
                 {frequency === opt.value && (
-                  <Feather name="check" size={16} color={colors.primary} />
+                  <Text style={{ fontSize: 16, color: colors.primary, fontFamily: "Inter_700Bold" }}>✓</Text>
                 )}
               </TouchableOpacity>
             ))}
