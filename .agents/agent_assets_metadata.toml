@@ -1,8 +1,13 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "C9jErBdUH7mAUJrA8qHkL"
 uri = "file://artifacts/medical-reminders/assets/images/icon.png"
 type = "image"
 title = "medical reminders app icon"
+
+[[outputs]]
+id = "mg1Xym-s6KXzOpg4SgmPx"
+uri = "file://qr-code.jpeg"
+type = "image"
+title = "Expo Go QR Code — Scan with Expo Go on Android"
