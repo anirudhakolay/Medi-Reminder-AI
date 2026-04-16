@@ -12,7 +12,10 @@
       "android": {
         "buildType": "apk"
       },
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_USE_NON_FROZEN_LOCKFILE": "1"
+      }
     },
     "production": {
       "autoIncrement": true
